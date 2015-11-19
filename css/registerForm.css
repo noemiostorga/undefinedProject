@@ -1,0 +1,30 @@
+#registerDiv {
+	background-color: red;
+}
+input {
+	width:200px;
+	height:30px;
+	border-radius:5px;
+	outline:none;
+	position: relative;
+	
+}
+
+
+#creditCard {
+	display: inline;
+}
+#cvc {
+	display: inline;
+	width:35px;
+}
+#creditLabel {
+	display: block;
+}
+
+#expLab {
+	display: block;
+}
+.clearfix {
+	clear: both;
+}
