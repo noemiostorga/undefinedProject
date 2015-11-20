@@ -12,16 +12,17 @@ var ListItem = React.createClass({
 					<span className="addSpan">Add Item</span>
 
 					<div className="addItemContainer">
-						<label>Picture</label>
+					
+						<label>Picture:</label>
 						<input type="text"/>  <br/>
 
-						<label>Title</label>
+						<label>Title:</label>
 						<input id="title" type="text"/> <br/>
 
-						<label id="amount">Amount</label>
+						<label id="amount">Amount:</label>
 						<input type="text"/> <br/>
 
-						<label>Url</label>
+						<label>Url:</label>
 						<input type="text"/> <br/>
 
 						<span>Visibility</span>
