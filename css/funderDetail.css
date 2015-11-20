@@ -1,3 +1,35 @@
 /********************
 COMPONENT: FUNDER DETAIL
 *********************/
+.FunderDetailCon{
+	border:1px solid black;
+	width: 30%;
+	height: 100%;
+}
+
+.funderDetailList li{
+	list-style: none;
+	text-align: center;
+	padding: 5px;
+	
+}
+
+#title{
+	font-weight: bold;
+}
+
+#pics{
+	font-weight: bold;
+}
+
+#url{
+	width: 50%;
+	position: relative;
+	left: 60px;
+}
+
+#progess{
+	height: 30px;
+	width: 50%;
+	background: red;
+}
