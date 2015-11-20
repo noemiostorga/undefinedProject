@@ -1,28 +1,76 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Backbone = require('backbone');
+require('../../css/funderView.css')
 
-var FunderView = React.createClass({
-	render: function () {
-		return(
-			
-			<div>
-				<div id="funderViewHeader">
-					<h1>Funder View</h1>
-					<h2>Available Items for Pledges</h2>
-				</div>
 
-				<div id="funderViewLists">
-					<h2>List for XXXXXXXX</h2>
-					<ul>
-					 	<li className="funderListLi"></li>
-					</ul>
-					<p>If you would like to make a pledge, please click on the item box.</p>
-				</div>
+var FundView = Backbone.Model.extend({
+        initialize: function() {
+            console.log("a new detfund has been created");
+        }
+        
+});
+var TheFundView = Backbone.Collection.extend({
+    url: "https://afternoon-scrubland-9189.herokuapp.com/api/lists/"
+});
+var theFundView = new TheFundView();
 
-			</div>
-			)
-		}
-	
+theFundView.fetch({
+    success: function(resp) {
+        var test =resp.toJSON();
+     	
+        var mapped=test[0].results.map(function(obj){
+        	return {
+        		'item_set':obj.item_set
+        	}
+        });
+
+     	var namePriceImage=mapped[0].item_set.map(function(obj){
+       	return {
+       		'name':obj.name,
+       		'image':obj.image,
+       		'price':obj.price
+       	}
+       })
+     	console.log(namePriceImage);
+
+
+     	
+    
+     	
+       ReactDOM.render(<FunderView data={namePriceImage}/>, document.getElementById("funderView"));
+     
+    },
+
+    error: function(error) {
+        console.log(error);
+    }
 });
 
+
+
+
+
+
+var FunderView = React.createClass({
+
+	render: function () {
+	var here = this.props.data.map(function(obj) {
+		console.log(obj);
+		return(
+			
+			   <div id="funderDiv">
+                <img id="funderImg" src={obj.image}/>
+               	<span>{obj.name}</span>
+                <span id="price">{obj.price}</span>
+				</div>
+				)
+		});
+		return(<div>{here}</div>);
+}	
+});
+
+
+
 module.exports = FunderView;
+

@@ -3,6 +3,43 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Backbone = require('backbone');
 
+
+var ListItemView = Backbone.Model.extend ({
+	
+	initialize: function () {
+		console.log("A new ListItemView model  was made");
+	} 
+
+});
+
+var ItemView = Backbone.Collection.extend({
+	url: "https://afternoon-scrubland-9189.herokuapp.com/api/lists/"
+});
+
+var itemView = new ItemView();
+itemView.fetch({
+	success: function(resp){
+		console.log(resp.toJSON());
+		
+	},
+	error: function(error){
+		console.log(err);
+	}
+});
+
+var testList = new ItemView();
+testList.set({
+	'image' : 'image',
+	'name' : 'name',
+	'price': null	
+
+ 
+});
+
+
+
+
+
 var ListItem = React.createClass({
 	render: function() {
 		return (
@@ -12,7 +49,7 @@ var ListItem = React.createClass({
 					<span className="addSpan">Add Item</span>
 
 					<div className="addItemContainer">
-					
+
 						<label>Picture:</label>
 						<input type="text"/>  <br/>
 
@@ -42,36 +79,7 @@ var ListItem = React.createClass({
 
 module.exports = ListItem;
 
-var ListItemView = Backbone.Model.extend ({
-	
-	initialize: function () {
-		console.log("A new ListItemView model  was made");
-	}
 
-});
-
-var ItemView = Backbone.Collection.extend({
-	url: "https://afternoon-scrubland-9189.herokuapp.com/api/lists/"
-});
-
-var itemView = new ItemView();
-itemView.fetch({
-	success: function(resp){
-		console.log(resp.toJSON());
-	},
-	error: function(error){
-		console.log(err);
-	}
-});
-
-var testList = new ItemView();
-testList.set({
-	'image' : 'image',
-	'name' : 'name',
-	'price': null
-
- 
-});
 
 
 
