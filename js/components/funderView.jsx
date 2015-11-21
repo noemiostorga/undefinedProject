@@ -7,14 +7,14 @@ require('../../css/funderView.css')
 var FundView = Backbone.Model.extend({
         initialize: function() {
             console.log("a new detfund has been created");
-        }
-        
+        }      
 });
+
 var TheFundView = Backbone.Collection.extend({
     url: "https://afternoon-scrubland-9189.herokuapp.com/api/lists/"
 });
-var theFundView = new TheFundView();
 
+var theFundView = new TheFundView();
 theFundView.fetch({
     success: function(resp) {
         var test =resp.toJSON();
@@ -48,17 +48,13 @@ theFundView.fetch({
 });
 
 
-
-
-
-
 var FunderView = React.createClass({
-
 	render: function () {
+
 	var here = this.props.data.map(function(obj) {
 		console.log(obj);
 		return(
-			
+			 
 			   <div id="funderDiv">
                 <img id="funderImg" src={obj.image}/>
                	<span>{obj.name}</span>
