@@ -51,12 +51,12 @@ fundDet.fetch({
 		
 	
 		return (	
-			<div>
-				<ul>
-					<li><img id="pics"/>{obj.image}</li>
-					<li>{obj.name}</li>
-					<li id="price">{obj.price}amount</li>
-					<li>{obj.item_link}</li>
+			<div className="detailView">
+				<ul className="detailview">
+					<li><img id="pics" src={obj.image}/></li>
+					<li id="detTitle">{obj.name}</li>
+					<li id="detPrice">{obj.price}</li>
+					<li><input value={obj.item_link} /></li>
 					<li><button>submit</button></li>
 					<li> <div>progress</div></li>
 					<li> to go til goal</li>

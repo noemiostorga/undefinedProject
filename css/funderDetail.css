@@ -1,6 +1,47 @@
 /********************
 COMPONENT: FUNDER DETAIL
 *********************/
+.detailView{
+	width: 50%;
+	text-align: center;
+	border: 1px solid black;
+	background: rgba(152, 175, 199, .1);
+}
+
+ul.detailview{
+	padding: 0px;
+}
+
+.detailview li{
+	list-style: none;
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	padding-bottom: 15px;
+}
+
+#pics{
+	height: 300px;
+	width: 300px;
+}
+
+
+#detTitle{
+	font-weight: bold;
+	font-size: 2em;
+}
+
+
+#detPrice{
+	font-weight: bold;
+}
+
+#detPrice:before{
+	content:'$';
+
+
+}
+
 .FunderDetailCon{
 	border:1px solid black;
 	width: 30%;
@@ -18,9 +59,7 @@ COMPONENT: FUNDER DETAIL
 	font-weight: bold;
 }
 
-#pics{
-	font-weight: bold;
-}
+
 
 #url{
 	width: 50%;
