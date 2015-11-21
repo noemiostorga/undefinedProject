@@ -48,7 +48,7 @@ fundView.fetch({
 		console.log(resp.toJSON());
 	},
 	error: function(error) {
-		console.log(err);
+		console.log(error);
 	}
 });
 var test = new FundView();

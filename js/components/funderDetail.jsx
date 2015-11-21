@@ -9,18 +9,23 @@ var DetFundDet = Backbone.Model.extend ({
 	}
 
 });
-
-
 var FundDet = Backbone.Collection.extend({
 	url: "https://afternoon-scrubland-9189.herokuapp.com/api/lists/"
 });
-
 var fundDet = new FundDet();
+
 fundDet.fetch({
     success: function(resp) {
-        var test =resp.toJSON();
-        console.log(test[0]);
-        var mapped=test[0].results.map(function(obj){
+        var test_one =resp.toJSON();
+
+        var mapped_one = test_one[0].results.map(function(obj){
+        	return {
+        		'item_set': obj.item_set
+        	}
+        });
+
+        
+        var DetailFunder=mapped_one[0].item_set.map(function(obj){
         	return {
         	'image':obj.image,
         	'name' : obj.name,
@@ -29,26 +34,29 @@ fundDet.fetch({
 
         }
     })
-        console.log(mapped);
+        
+
+        ReactDOM.render(<FunderDetail data={DetailFunder}/>, document.getElementById('funderDetail'));
     },
     error: function(error) {
         console.log(error);
     }
 
 
-  })
+  });
 
     var FunderDetail = React.createClass({
-	render: function (mapped) {
+	render: function () {
+	var here_one = this.props.data.map(function(obj){
+		
 	
 		return (	
 			<div>
 				<ul>
-					<li><img id="pics"/>{this.props.image}</li>
-					<li>{this.props.name}</li>
-					<li id="price">{this.props.price}amount</li>
-					<li>{this.props.image}</li>
-					<label><input /></label>
+					<li><img id="pics"/>{obj.image}</li>
+					<li>{obj.name}</li>
+					<li id="price">{obj.price}amount</li>
+					<li>{obj.item_link}</li>
 					<li><button>submit</button></li>
 					<li> <div>progress</div></li>
 					<li> to go til goal</li>
@@ -56,7 +64,9 @@ fundDet.fetch({
 				</ul>
 			</div>
 			)
-		}
+		});
+	return(<div>{here_one}</div>);
+}
 });
 
 
@@ -66,5 +76,5 @@ fundDet.fetch({
 
 
 module.exports = FunderDetail; 
-ReactDOM.render(<FunderDetail />, document.getElementById('funderDetail'));
+
 
