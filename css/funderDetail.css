@@ -34,6 +34,7 @@ ul.detailview{
 
 #detPrice{
 	font-weight: bold;
+
 }
 
 #detPrice:before{
@@ -41,6 +42,12 @@ ul.detailview{
 
 
 }
+
+#detPrice:after {
+
+	color: black;
+}
+
 
 .FunderDetailCon{
 	border:1px solid black;
@@ -72,3 +79,6 @@ ul.detailview{
 	width: 50%;
 	background: red;
 }
+
+
+
