@@ -1,6 +1,7 @@
 var React = require('react'); 
 var ReactDOM = require('react-dom');
 var Backbone = require('backbone');
+
 require('../../css/funderDetail.css');
 
 var DetFundDet = Backbone.Model.extend ({
@@ -14,7 +15,6 @@ var DetFundDet = Backbone.Model.extend ({
 var FundDet = Backbone.Collection.extend({
 	url: "https://afternoon-scrubland-9189.herokuapp.com/api/lists/"
 });
-
 var fundDet = new FundDet();
 fundDet.fetch({
     success: function(resp) {
@@ -26,7 +26,6 @@ fundDet.fetch({
         	}
         });
 
-        
         var DetailFunder=mapped_one[0].item_set.map(function(obj){
         	return {
         	'image':obj.image,
@@ -35,18 +34,23 @@ fundDet.fetch({
         	'item_link' : obj.item_link
 
         }
-    })
+    });
         console.log(DetailFunder);
         
 
         ReactDOM.render(<FunderDetail data={DetailFunder}/>, document.getElementById('funderDetail'));
     },
+
     error: function(error) {
         console.log(error);
     }
   });
 
+
+
+
     var FunderDetail = React.createClass({
+
 
 	render: function () {
 	var here_one = this.props.data.map(function(obj){
@@ -66,6 +70,7 @@ fundDet.fetch({
 				</ul>
 			</div>
 			)
+
 		});
 	return(<div>{here_one}</div>);
 }
