@@ -10,43 +10,66 @@ var TakeMoney = React.createClass({
 	render: function () {
 
 	<div>
-		<form action="" method="POST">
-		    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-		    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-		    data-amount="2000"
-		    data-name="Demo Site"
-		    data-description="2 widgets ($20.00)"
-		    data-image="/128x128.png"
-		    data-locale="auto">
-		</form>
-		<form action="" method="POST" id="payment-form">
-		  <span class="payment-errors"></span>
+	
+<head>
+  <!-- Stripe.js used; fewer compliance requirements! -->
+  <!-- Include Stripe.js, either in your <head> or as a direct descendant of <body>
+  at the end of the page -->
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+</head>
 
-		  <div class="form-row">
-		    <label>
-		      <span>Card Number</span>
-		      <input type="text" size="20" data-stripe="number"/>
-		    </label>
-		  </div>
+<body>
+<!-- Now change all the name attributes on your credit card inputs to data-stripe instead -->
+  <form action="" method="POST" id="payment-form">
+      <!-- Add a section to display errors if you want -->
+      <span class='payment-errors'></span>
+      <input data-stripe="number"/>
+      <input data-stripe="cvc"/>
+      <input data-stripe="exp-month"/>
+      <input data-stripe="exp-year"/>
+      <button type="submit">Submit Payment</button>
+  </form>
+</body>
+Now, we just add another script section in our <head> to ask Stripe.js to send our card details to Stripe and get back a token:
 
-		  <div class="form-row">
-		    <label>
-		      <span>CVC</span>
-		      <input type="text" size="4" data-stripe="cvc"/>
-		    </label>
-		  </div>
+<head>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey('YOUR_PUBLISHABLE_KEY');
 
-		  <div class="form-row">
-		    <label>
-		      <span>Expiration (MM/YYYY)</span>
-		      <input type="text" size="2" data-stripe="exp-month"/>
-		    </label>
-		    <span> / </span>
-		    <input type="text" size="4" data-stripe="exp-year"/>
-		  </div>
+   var stripeResponseHandler = function(status, response) {
+     var $form = $('#payment-form');
 
-		  <button type="submit">Submit Payment</button>
-		</form>
+     if (response.error) {
+       // Show the errors on the form
+       $form.find('.payment-errors').text(response.error.message);
+       $form.find('button').prop('disabled', false);
+     } else {
+       // token contains id, last4, and card type
+       var token = response.id;
+       // Insert the token into the form so it gets submitted to the server
+       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+       // and re-submit
+       $form.get(0).submit();
+     }
+   };
+
+   jQuery(function($) {
+     $('#payment-form').submit(function(e) {
+       var $form = $(this);
+
+       // Disable the submit button to prevent repeated clicks
+       $form.find('button').prop('disabled', true);
+
+       Stripe.card.createToken($form, stripeResponseHandler);
+
+       // Prevent the form from submitting with the default action
+       return false;
+     });
+   });
+ </script>
+</head>
 	</div>
 	}
 });

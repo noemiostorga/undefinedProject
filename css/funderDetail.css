@@ -80,5 +80,18 @@ ul.detailview{
 	background: red;
 }
 
+#takeMeLink{
+	text-decoration: none;
+	font-size: 2em;
+	color: black;
+	font-weight: bold;
+}
+
+
+#takeMeLink:hover{
+	text-decoration: underline;
+
+	
+}
 
 
